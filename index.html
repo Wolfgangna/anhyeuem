@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Website Lovely - nơi chia sẻ tình yêu thương.">
+    <title>IU</title>
+    <link rel="icon" href="https://github.com/Panbap/anh/blob/main/icon1.png?raw=true" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+    <style>
+                /* Hiệu ứng nền trái tim nổi */
+                .heart-background {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    pointer-events: none;
+                    z-index: -1;
+                    overflow: hidden;
+                }
+                .heart {
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 24px;
+                    height: 24px;
+                    background: transparent;
+                    pointer-events: none;
+                    z-index: 0;
+                    animation: floatHeart 6s linear forwards;
+                }
+                .heart svg {
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                }
+                @keyframes floatHeart {
+                    0% {
+                        opacity: 0;
+                        transform: scale(0.7) translateY(0);
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: scale(1.2) translateY(-100vh);
+                    }
+                }
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Playpen Sans", cursive;
+            background-color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            width: 250px;
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-family: "Playpen Sans", cursive;
+            font-weight: 700;
+            color: #ff8282;
+            text-shadow: 1px 1px 0 #e4e4e4;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+            text-shadow:
+                1px 1px 0 #e4e4e4,
+                2px 2px 0 #e4e4e4;
+        }
+
+        h2:hover {
+            transform: perspective(400px) translateZ(10px) scale(1.05);
+        }
+
+        .button-wrapper {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        button {
+            font-family: "Playpen Sans", cursive;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            border-radius: 25px;
+            color: #ef9a9a;
+            font-weight: 600;
+        }
+
+        #yesBtn {
+            background: linear-gradient(#fff);
+            box-shadow: 0 2px 5px #ef9a9a;
+            border: 2px solid #ef9a9a;
+            animation: jump 3s ease-in-out infinite;
+        }
+
+        #noBtn {
+            background: linear-gradient(#fff);
+            box-shadow: 0 2px 5px #ef9a9a;
+            border: 2px solid #ef9a9a;
+            transition: left 0.2s ease, top 0.2s ease;
+        }
+
+        @keyframes jump {
+
+            0%,
+            25%,
+            75%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="heart-background" id="heart-background"></div>
+
+    <img id="main-img" src="./assets/images/3.gif" alt="Hình ảnh" />
+    <h2 id="main-text">Em có yêu anh không?</h2>
+
+    <div class="button-wrapper" id="button-wrapper">
+        <button id="yesBtn">Dạ</button>
+        <button id="noBtn">Hông</button>
+    </div>
+
+    <script>
+                const heartColors = ['#ff7eb9', '#ff65a3', '#fcdff0', '#ffb3c6', '#ff6f91', '#f67280', '#ff8fab', '#fcb1b1'];
+                function createHeart() {
+                    const heartBg = document.getElementById('heart-background');
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    const color = heartColors[Math.floor(Math.random() * heartColors.length)];
+                    const left = Math.random() * 100;
+                    const size = 18 + Math.random() * 18;
+                    heart.style.left = left + 'vw';
+                    heart.style.bottom = '0';
+                    heart.style.width = size + 'px';
+                    heart.style.height = size + 'px';
+                    heart.style.opacity = 0.7 + Math.random() * 0.3;
+                    heart.innerHTML = `<svg viewBox="0 0 32 29.6"><path fill="${color}" d="M23.6,0c-2.7,0-5.1,1.3-6.6,3.3C15.5,1.3,13.1,0,10.4,0C4.7,0,0,4.7,0,10.4c0,11.1,16,19.2,16,19.2s16-8.1,16-19.2C32,4.7,27.3,0,23.6,0z"/></svg>`;
+                    heartBg.appendChild(heart);
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 6000);
+                }
+                setInterval(createHeart, 400);
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const img = document.getElementById('main-img');
+        const text = document.getElementById('main-text');
+        const wrapper = document.getElementById('button-wrapper');
+        let noHoverCount = 0;
+        let allowClickNo = false;
+        let finished = false;
+        function moveNoButton() {
+            if (allowClickNo || finished) return;
+
+            noHoverCount++;
+
+            if (noHoverCount < 3) {
+                noBtn.style.position = 'fixed';
+                const maxX = window.innerWidth - noBtn.offsetWidth;
+                const maxY = window.innerHeight - noBtn.offsetHeight;
+                noBtn.style.left = `${Math.random() * maxX}px`;
+                noBtn.style.top = `${Math.random() * maxY}px`;
+            } else {
+                allowClickNo = true;
+                noBtn.textContent = "Bấm nì";
+            }
+        }
+
+
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Danh sách nội dung và ảnh cho mỗi lần bấm "Hông"
+        const noContents = [
+            { img: './assets/images/5.gif', text: 'Huhu sao lại chọn Hông :(())' },
+            { img: './assets/images/6.gif', text: 'Thật sự không yêu anh hả?' },
+            { img: './assets/images/2.gif', text: 'Thôi đừng giận nữa mà, chọn lại đi nha!' }
+        ];
+        let noClickCount = 0;
+
+        noBtn.addEventListener('click', () => {
+            if (!allowClickNo) return;
+            const content = noContents[noClickCount % noContents.length];
+            img.src = content.img;
+            text.textContent = content.text;
+            noHoverCount = 0;
+            allowClickNo = false;
+            noBtn.style.position = '';
+            noBtn.style.left = '';
+            noBtn.style.top = '';
+            noBtn.textContent = 'Hông';
+            yesBtn.textContent = 'Dạ';
+            noClickCount++;
+        });
+
+        // Khi bấm "Dạ"
+        yesBtn.addEventListener('click', () => {
+            if (finished) return;
+
+            finished = true;
+
+            wrapper.style.display = 'none';
+            img.src = './assets/images/1.gif';
+            text.textContent = 'Anh yêu em nhiều lắm moa moa';
+        });
+        function getQueryParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
+        }
+
+        function base64DecodeUnicode(str) {
+            try {
+                return decodeURIComponent(Array.prototype.map.call(atob(str), c =>
+                    '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+                ).join(''));
+            } catch (e) {
+                return null;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const idParam = getQueryParam('id');
+            if (idParam) {
+                try {
+                    const decoded = base64DecodeUnicode(idParam);
+                    if (!decoded) throw new Error('Decode failed');
+                    const data = JSON.parse(decoded);
+                    if (data.l) img.src = data.l;
+                    if (data.n) text.textContent = data.n;
+                    if (data.g) yesBtn.textContent = data.g;
+                    if (data.h) noBtn.textContent = data.h;
+                    yesBtn.addEventListener('click', () => {
+                        wrapper.style.display = 'none';
+                        img.src = data.m || './assets/images/1.gif';
+                        text.textContent = data.o || 'Anh yêu em nhiều lắm';
+                    });
+                } catch (err) {
+                    console.error('Không thể giải mã dữ liệu:', err);
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
